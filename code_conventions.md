@@ -74,7 +74,7 @@ Method definitions inside a class are surrounded by **a single blank line**.
 class MyClass:
     def __init__(self):
         pass
-    
+
     def __str__(self):
         pass
 
@@ -86,10 +86,10 @@ Use blank lines in functions, sparingly, to indicate logical sections.
 ```
 def func(a, b):
     res = 0
-    
+
     for i in range(10):
         res += a + b
-    
+
     return res
 ```
 
@@ -129,7 +129,7 @@ s = 'abc'
 
 Avoid extraneous whitespace in the following situations:
 
-Immediately inside parentheses, brackets or braces: 
+Immediately inside parentheses, brackets or braces:
 ```
 # Correct:
 spam(ham[1], {eggs: 2})
@@ -232,7 +232,7 @@ hypot2 = x * x + y * y
 c = (a + b) * (a - b)
 ```
 
-Function annotations should use the normal rules for colons and always have spaces around the -> arrow if present. 
+Function annotations should use the normal rules for colons and always have spaces around the -> arrow if present.
 ```
 # Correct:
 def munge(input: AnyStr): ...
@@ -283,7 +283,7 @@ if foo == 'blah': do_blah_thing()
 do_one(); do_two(); do_three()
 ```
 
-Don't put an if/for/while on the same line with multi-clause statements. 
+Don't put an if/for/while on the same line with multi-clause statements.
 ```
 # Wrong:
 if foo == 'blah': do_blah_thing()
@@ -341,11 +341,11 @@ For one liner docstrings, please keep the closing """ on the same line:
 """Return an ex-parrot."""
 ```
 
-Write docstrings for all public: 
-- modules, 
-- functions, 
-- classes, 
-- methods. 
+Write docstrings for all public:
+- modules,
+- functions,
+- classes,
+- methods.
 
 ```
 """Module docstring"""
@@ -398,9 +398,9 @@ Use the following kinds of naming styles:
 #### 5.2.1 Names to Avoid
 
 Never use the characters:
-- 'l' (lowercase letter el), 
-- 'O' (uppercase letter oh), 
-- 'I' (uppercase letter eye) 
+- 'l' (lowercase letter el),
+- 'O' (uppercase letter oh),
+- 'I' (uppercase letter eye)
 
 as single character variable names.
 
@@ -409,7 +409,7 @@ In some fonts, these characters are indistinguishable from the numerals one and 
 
 #### 5.2.2 Package and Module Names
 
-Modules should have short, all-lowercase names. Underscores can be used in the module name if it improves readability. 
+Modules should have short, all-lowercase names. Underscores can be used in the module name if it improves readability.
 
 Python packages should also have short, all-lowercase names, although the use of underscores is discouraged.
 
@@ -444,7 +444,7 @@ All function names should be written in the form _[doing]\_[what]_, where _[doin
 ```
 def compute_sum(*args):
     n_sum = 0
-    
+
     for a in args:
         n_sum += a
 
@@ -479,7 +479,7 @@ Define constants on a module level and write them using capital letters with und
 ```
 MAX_OVERFLOW = 10000
 TOTAL = 2000000
-``` 
+```
 
 #### 5.2.10 Designing for Inheritance
 
@@ -489,10 +489,10 @@ Public attributes are those that you expect unrelated clients of your class to u
 
 Use the following guidelines:
 - Public attributes should have no leading underscores.
-- If your public attribute name collides with a reserved keyword, append a single trailing underscore to your attribute name. 
-- For simple public data attributes, it is best to expose just the attribute name, without complicated accessor/mutator methods. 
+- If your public attribute name collides with a reserved keyword, append a single trailing underscore to your attribute name.
+- For simple public data attributes, it is best to expose just the attribute name, without complicated accessor/mutator methods.
 - Avoid using properties for computationally expensive operations; the attribute notation makes the caller believe that access is (relatively) cheap.
-- If your class is intended to be subclassed, and you have attributes that you do not want subclasses to use, consider naming them with double leading underscores and no trailing underscores. 
+- If your class is intended to be subclassed, and you have attributes that you do not want subclasses to use, consider naming them with double leading underscores and no trailing underscores.
 
 
 ## References
