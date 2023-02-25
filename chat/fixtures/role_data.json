@@ -1,0 +1,26 @@
+[
+{
+    "model": "chat.role",
+    "pk": 1,
+    "fields": {
+        "role_name": "user",
+        "description": "Base role with basic priviliges"
+    }
+},
+{
+    "model": "chat.role",
+    "pk": 2,
+    "fields": {
+        "role_name": "moderator",
+        "description": "Role in charge of managing chats"
+    }
+},
+{
+    "model": "chat.role",
+    "pk": 3,
+    "fields": {
+        "role_name": "admin",
+        "description": "Role in charge of managing the app"
+    }
+}
+]
