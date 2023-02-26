@@ -80,17 +80,7 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "pythonChat",
-        "USER": "pythonchatuser",
-        "PASSWORD": "Pythonchat5?",
-        "HOST": "localhost",
-        "PORT": "3306",
-    }
-}
-
+DATABASES = {"default": env.dj_db_url("DATABASE_URL")}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
