@@ -1,0 +1,287 @@
+[
+{
+    "model": "chat.user",
+    "pk": 1,
+    "fields": {
+        "password": "nA0iUU3o+!",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "utran",
+        "first_name": "",
+        "last_name": "",
+        "email": "person0@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-02-25T19:16:07.201Z",
+        "role": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "chat.user",
+    "pk": 2,
+    "fields": {
+        "password": "z+m0CyUV!2",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "adamsmith",
+        "first_name": "",
+        "last_name": "",
+        "email": "person1@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-02-25T19:16:07.241Z",
+        "role": 2,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "chat.user",
+    "pk": 3,
+    "fields": {
+        "password": "ys3VMrQl^h",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "vhall",
+        "first_name": "",
+        "last_name": "",
+        "email": "person2@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-02-25T19:16:07.244Z",
+        "role": 3,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "chat.user",
+    "pk": 4,
+    "fields": {
+        "password": "!ILvOdAAl9",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "richardlewis",
+        "first_name": "",
+        "last_name": "",
+        "email": "person3@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-02-25T19:16:07.248Z",
+        "role": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "chat.user",
+    "pk": 5,
+    "fields": {
+        "password": "f7gJJr04)L",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "scottdavis",
+        "first_name": "",
+        "last_name": "",
+        "email": "person4@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-02-25T19:16:07.250Z",
+        "role": 2,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "chat.user",
+    "pk": 6,
+    "fields": {
+        "password": "&4iJ(wx1U$",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "hmoore",
+        "first_name": "",
+        "last_name": "",
+        "email": "person5@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-02-25T19:16:07.253Z",
+        "role": 3,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "chat.user",
+    "pk": 7,
+    "fields": {
+        "password": "@^4BNDkT&D",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "bryancollins",
+        "first_name": "",
+        "last_name": "",
+        "email": "person6@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-02-25T19:16:07.256Z",
+        "role": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "chat.user",
+    "pk": 8,
+    "fields": {
+        "password": "nk8iYyBA2&",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "traci90",
+        "first_name": "",
+        "last_name": "",
+        "email": "person7@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-02-25T19:16:07.258Z",
+        "role": 2,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "chat.user",
+    "pk": 9,
+    "fields": {
+        "password": "V)2ZvN_hdt",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "slarson",
+        "first_name": "",
+        "last_name": "",
+        "email": "person8@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-02-25T19:16:07.259Z",
+        "role": 3,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "chat.user",
+    "pk": 10,
+    "fields": {
+        "password": "T*w26Hmq^a",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "scott14",
+        "first_name": "",
+        "last_name": "",
+        "email": "person9@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-02-25T19:16:07.261Z",
+        "role": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "chat.user",
+    "pk": 11,
+    "fields": {
+        "password": "^&0L1Rnaqx",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "morgan98",
+        "first_name": "",
+        "last_name": "",
+        "email": "person10@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-02-25T19:16:07.264Z",
+        "role": 2,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "chat.user",
+    "pk": 12,
+    "fields": {
+        "password": "&2AIx1auuN",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "ycolon",
+        "first_name": "",
+        "last_name": "",
+        "email": "person11@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-02-25T19:16:07.267Z",
+        "role": 3,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "chat.user",
+    "pk": 13,
+    "fields": {
+        "password": "&I0Dn+2cuh",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "olin",
+        "first_name": "",
+        "last_name": "",
+        "email": "person12@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-02-25T19:16:07.269Z",
+        "role": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "chat.user",
+    "pk": 14,
+    "fields": {
+        "password": "(LN9C^+yN2",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "drichardson",
+        "first_name": "",
+        "last_name": "",
+        "email": "person13@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-02-25T19:16:07.270Z",
+        "role": 2,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "chat.user",
+    "pk": 15,
+    "fields": {
+        "password": "$AR^7Gx%Av",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "duanepowell",
+        "first_name": "",
+        "last_name": "",
+        "email": "person14@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-02-25T19:16:07.272Z",
+        "role": 3,
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

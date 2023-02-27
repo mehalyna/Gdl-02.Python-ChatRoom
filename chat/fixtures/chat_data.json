@@ -1,0 +1,77 @@
+[
+{
+    "model": "chat.chat",
+    "pk": 1,
+    "fields": {
+        "chat_name": "jones-day",
+        "max_size": 30,
+        "description": "Wonder myself enough strategy safe also grow audience general already quality concern might economic decide kitchen material speech film its.",
+        "created_at": "2023-02-25T19:16:46.450Z",
+        "active_status": true,
+        "chat_member": [
+            1,
+            2,
+            3,
+            4,
+            5
+        ],
+        "moderator": [
+            3,
+            9
+        ]
+    }
+},
+{
+    "model": "chat.chat",
+    "pk": 2,
+    "fields": {
+        "chat_name": "miller",
+        "max_size": 30,
+        "description": "Together how finally her so phone language play young through nature program likely production management so measure decision gun off open.",
+        "created_at": "2023-02-25T19:17:17.819Z",
+        "active_status": true,
+        "chat_member": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+        ],
+        "moderator": [
+            14,
+            15
+        ]
+    }
+},
+{
+    "model": "chat.chat",
+    "pk": 3,
+    "fields": {
+        "chat_name": "reyes-harris",
+        "max_size": 30,
+        "description": "Church fire see best including ever close movie social improve necessary by he dream.",
+        "created_at": "2023-02-25T19:18:02.932Z",
+        "active_status": true,
+        "chat_member": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+        ],
+        "moderator": [
+            2,
+            6,
+            11,
+            12
+        ]
+    }
+}
+]
