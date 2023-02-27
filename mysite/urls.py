@@ -9,7 +9,13 @@ urlpatterns = [
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("dj-rest-auth/", include("dj_rest_auth.urls")),
     path("dj-rest-auth/", include("dj_rest_auth.urls")),
-    path("dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")),
+    path(
+        "dj-rest-auth/registration/",
+        include("dj_rest_auth.registration.urls"),
+        name="registration",
+    ),
+    # Chat
+    path("chat/", include("chat.urls")),
 ]
 
 # router = DefaultRouter()
