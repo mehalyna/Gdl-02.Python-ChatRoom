@@ -11,11 +11,15 @@
       {% if error %}
         <div class="alert alert-danger" role="alert">{{ error }}</div>
       {% endif %}
-      <form method="POST">
+      <form method="POST" id="login">
         {% csrf_token %}
         <div class="form-group">
           <label for="username">Username</label>
           <input type="text" name="username" class="form-control" id="username" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" name="email" class="form-control" id="email" />
         </div>
         <div class="form-group">
           <label for="password">Password</label>
@@ -23,10 +27,41 @@
         </div>
         <button type="submit" class="btn btn-primary m-1">Login</button>
       </form>
+
       <hr />
       <div class="text-center">
-        Need an account? <a href="#">Sign Up here</a>
+        Need an account? <a href="{% url 'signupuser' %}">Sign Up here</a>
       </div>
     </div>
   </div>
+  <script type="text/javascript">
+    document.getElementById('login').addEventListener('submit', function (e) {
+      e.preventDefault()
+
+      username = document.getElementById('username').value
+      email = document.getElementById('email').value
+      password = document.getElementById('password').value
+
+      const formData = new FormData()
+      //console.log(name);
+      formData.append('username', username)
+      formData.append('email', email)
+      formData.append('password', password)
+
+      formData.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+      console.log(formData)
+      fetch('http://127.0.0.1:8000/dj-rest-auth/login/', {
+        method: 'POST',
+        body: formData
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('Success:', data)
+
+        })
+        .catch((error) => {
+          console.error('Error:', error)
+        })
+    })
+  </script>
 {% endblock %}
