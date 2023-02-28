@@ -17,6 +17,8 @@ urlpatterns = [
     # Chat
     path("chat/", include("chat.urls")),
 ]
+handler404 = "chat.views.handler404"
+
 
 # router = DefaultRouter()
 # router.register(r"user", views.UserViewSet, basename="user")
