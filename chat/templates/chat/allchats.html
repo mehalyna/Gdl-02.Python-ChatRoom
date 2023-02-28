@@ -57,7 +57,7 @@
 
             <div class="messages-box">
               <div class="list-group rounded-0">
-                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+                <a href="{% url 'viewchat' %}" class="list-group-item list-group-item-action list-group-item-light rounded-0">
                   <div class="media">
                     <img src="https://freesvg.org/storage/img/thumb/abstract-user-flat-3.png" alt="user" style="width:32px; height:32px;" class="rounded-circle" />
                     <div class="media-body ml-4">
@@ -68,82 +68,10 @@
                     </div>
                   </div>
                 </a>
-
-                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                  <div class="media">
-                    <img src="https://freesvg.org/storage/img/thumb/abstract-user-flat-3.png" alt="user" style="width:32px; height:32px;" class="rounded-circle" />
-                    <div class="media-body ml-4">
-                      <div class="d-flex align-items-center justify-content-between mb-1">
-                        <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">9 Nov</small>
-                      </div>
-                      <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                    </div>
-                  </div>
-                </a>
-
-                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                  <div class="media">
-                    <img src="https://freesvg.org/storage/img/thumb/abstract-user-flat-3.png" alt="user" style="width:32px; height:32px;" class="rounded-circle" />
-                    <div class="media-body ml-4">
-                      <div class="d-flex align-items-center justify-content-between mb-1">
-                        <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">18 Oct</small>
-                      </div>
-                      <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                    </div>
-                  </div>
-                </a>
-
-                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                  <div class="media">
-                    <img src="https://freesvg.org/storage/img/thumb/abstract-user-flat-3.png" alt="user" style="width:32px; height:32px;" class="rounded-circle" />
-                    <div class="media-body ml-4">
-                      <div class="d-flex align-items-center justify-content-between mb-1">
-                        <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">17 Oct</small>
-                      </div>
-                      <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                    </div>
-                  </div>
-                </a>
-
-                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                  <div class="media">
-                    <img src="https://freesvg.org/storage/img/thumb/abstract-user-flat-3.png" alt="user" style="width:32px; height:32px;" class="rounded-circle" />
-                    <div class="media-body ml-4">
-                      <div class="d-flex align-items-center justify-content-between mb-1">
-                        <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">2 Sep</small>
-                      </div>
-                      <p class="font-italic text-muted mb-0 text-small">Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
-                  </div>
-                </a>
-
-                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                  <div class="media">
-                    <img src="https://freesvg.org/storage/img/thumb/abstract-user-flat-3.png" alt="user" style="width:32px; height:32px;" class="rounded-circle" />
-                    <div class="media-body ml-4">
-                      <div class="d-flex align-items-center justify-content-between mb-1">
-                        <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">30 Aug</small>
-                      </div>
-                      <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                    </div>
-                  </div>
-                </a>
-
-                <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                  <div class="media">
-                    <img src="https://freesvg.org/storage/img/thumb/abstract-user-flat-3.png" alt="user" style="width:32px; height:32px;" class="rounded-circle" />
-                    <div class="media-body ml-4">
-                      <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">21 Aug</small>
-                      </div>
-                      <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                    </div>
-                  </div>
-                </a>
               </div>
             </div>
             <div class="bg-gray px-4 py-2 bg-secondary">
-              <a href="#" class="nav-link"><p class="h5 mb-0 py-1 text-dark text-center text-white">Create new room</p></a>
+              <a href="{% url 'create-room'%}" class="nav-link"><p class="h5 mb-0 py-1 text-dark text-center text-white">Create new room</p></a>
             </div>
           </div>
         </div>
