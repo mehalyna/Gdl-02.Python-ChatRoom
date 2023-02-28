@@ -33,6 +33,37 @@
         </div>
         <button type="submit" class="btn btn-primary m-1">Sign Up</button>
       </form>
+      <script type="text/javascript">
+        document.getElementById('register').addEventListener('submit', function (e) {
+          e.preventDefault()
+
+          username = document.getElementById('username').value
+          email = document.getElementById('email').value
+          password1 = document.getElementById('password1').value
+          password2 = document.getElementById('password2').value
+
+          const formData = new FormData()
+          //console.log(name);
+          formData.append('username', username)
+          formData.append('email', email)
+          formData.append('password1', password1)
+          formData.append('password2', password2)
+
+          formData.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+          console.log(formData)
+          fetch('http://127.0.0.1:8000/dj-rest-auth/registration/', {
+            method: 'POST',
+            body: formData
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log('Success:', data)
+            })
+            .catch((error) => {
+              console.error('Error:', error)
+            })
+        })
+      </script>
       <hr />
       <div class="text-center">
         Do you already have an account? <a href="{% url 'loginuser' %}">Login here</a>
