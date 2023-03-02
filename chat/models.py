@@ -22,12 +22,13 @@ class Chat(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     active_status = models.BooleanField(default=True)
-    chat_member = models.ManyToManyField("User", related_name="chats")
-    moderator = models.ManyToManyField("User", related_name="chats_mod")
+    chat_member = models.ManyToManyField(User, related_name="chats")
+    moderator = models.ManyToManyField(User, related_name="chats_mod")
+    online = models.ManyToManyField(User, blank=True, related_name="online")
 
 
 class Message(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    chat = models.ForeignKey("Chat", on_delete=models.CASCADE)
-    user = models.ForeignKey("User", on_delete=models.SET_NULL, null=True)
+    chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
