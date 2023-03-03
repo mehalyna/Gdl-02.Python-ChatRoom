@@ -10,4 +10,6 @@ urlpatterns = [
     path("view-chat/", views.view_chat, name="viewchat"),
     # path("view-chat/<int:id_chat>", views.view_chat, name="viewchat"),
     path("logout/", views.logoutuser, name="logoutuser"),
+    path("", views.index, name="index"),
+    path("<str:room_name>/", views.room, name="chat-room"),
 ]

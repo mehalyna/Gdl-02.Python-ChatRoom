@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
 
+from chat.models import Chat
+
 
 def handler404(request, exception):
     return render(request, "chat/404.html", status=404)
@@ -106,3 +108,24 @@ def view_chat(request):
 @login_required
 def allchats(request):
     return render(request, "chat/allchats.html")
+
+
+def index(request):
+    return render(
+        request,
+        "chat/index.html",
+        {
+            "rooms": Chat.objects.all(),
+        },
+    )
+
+
+def room(request, room_name):
+    chat_room, created = Chat.objects.get_or_create(chat_name=room_name)
+    return render(
+        request,
+        "chat/room.html",
+        {
+            "room": chat_room,
+        },
+    )
