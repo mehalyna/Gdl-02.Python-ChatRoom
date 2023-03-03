@@ -91,8 +91,29 @@ def logoutuser(request):
 
 @login_required
 def view_chat(request):
-    chat = []
-    chat.append({"id": 1, "name": "Chat Harcodeado"})
+    id = [1, 2, 1, 1, 2, 1, 2, 1]
+    message = ["Tenetur!", "hello", "there", "demo", "hi", "this", "is", "a"]
+    hour = [
+        "01:30 PM",
+        "01:31 PM",
+        "01:32 PM",
+        "01:33 PM",
+        "01:34 PM",
+        "01:35 PM",
+        "01:36 PM",
+        "01:37 PM",
+    ]
+    date = [
+        "Aug 13",
+        "Aug 13",
+        "Aug 13",
+        "Aug 13",
+        "Aug 13",
+        "Aug 13",
+        "Aug 13",
+        "Aug 13",
+    ]
+    chat = zip(id, message, hour, date)
     return render(request, "chat/view_chat.html", {"chat": chat})
 
 

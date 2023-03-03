@@ -52,29 +52,34 @@
       <!-- Chat Box -->
       <div class="col-12 px-0">
         <div class="bg-gray px-4 py-2 bg-light">
-          <p class="h5 mb-0 py-1 text-dark">ChatName</p>
+          <p class="h5 mb-0 py-1 text-dark">Chat 1</p>
         </div>
         <div class="px-4 py-5 chat-box bg-white">
           <!-- Sender Message -->
+          {% for id,message,hour,date in chat %}
+          {% if id == 1 %}
           <div class="media w-100 mb-3 d-flex flex-row">
             <img src="https://freesvg.org/storage/img/thumb/abstract-user-flat-3.png" class="m-1" alt="user" style="width:32px; height:32px;" class="rounded-circle" />
             <div class="media-body ml-3 text-start">
               <div class="bg-light rounded py-2 px-3 mb-2">
-                <p class="text-small mb-0 text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti voluptatum quis, eveniet porro odio saepe deserunt? Commodi id explicabo incidunt facere consequuntur iure quas suscipit aliquid accusamus, neque repudiandae nihil!</p>
+                <p class="text-small mb-0 text-muted">{{ message }}</p>
               </div>
-              <p class="small text-muted">12:00 PM | Aug 13</p>
+              <p class="small text-muted">{{ hour }} | {{ date}}</p>
             </div>
           </div>
-
+          {% else %}
           <!-- Reciever Message -->
           <div class="media w-100 ml-auto mb-3 d-flex flex-row-reverse">
             <div class="media-body text-end">
               <div class="bg-dark rounded py-2 px-3 mb-2">
-                <p class="text-small mb-0 text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores mollitia dolorum ab accusantium iusto, laudantium aliquid maxime dolor eveniet hic explicabo est expedita, at harum culpa consequuntur assumenda cum quos?</p>
+                <p class="text-small mb-0 text-white">{{ message }}</p>
               </div>
-              <p class="small text-muted">12:00 PM | Aug 13</p>
+              <p class="small text-muted">{{ hour }} | {{ date}}</p>
             </div>
           </div>
+          {% endif %}
+          {% endfor %}
+
 
           <!-- End chatbox -->
         </div>
