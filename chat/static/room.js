@@ -63,12 +63,17 @@ function connect() {
     };
 
     chatSocket.onmessage = function(e) {
+
         const data = JSON.parse(e.data);
         console.log(data);
 
         switch (data.type) {
             case "chat_message":
-                chatLog.value += data.message + "\n";
+                //chatLog.value += data.user + ": " + data.message + "\n";
+                var opt = document.createElement('option');
+                opt.value = data.user + ": " + data.message + "\n";
+                opt.innerHTML = data.user + ": " + data.message + "\n";
+                chatLog.appendChild(opt);
                 break;
             default:
                 console.error("Unknown message type!");
@@ -85,4 +90,17 @@ function connect() {
         chatSocket.close();
     }
 }
+
+document.querySelector("#chatLog").onchange = function() {
+  deleteMessage();
+}
+
+function deleteMessage() {
+  if (confirm("Do you want to delete this message?") == true){
+    var x = document.getElementById("chatLog");
+    x.remove(x.selectedIndex);
+
+  }
+}
+
 connect();

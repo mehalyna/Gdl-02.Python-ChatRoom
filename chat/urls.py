@@ -12,4 +12,5 @@ urlpatterns = [
     path("logout/", views.logoutuser, name="logoutuser"),
     path("", views.index, name="index"),
     path("<str:room_name>/", views.room, name="chat-room"),
+    # path("<str:room_name>/", views.previous_messages, name="previous_messages"),
 ]

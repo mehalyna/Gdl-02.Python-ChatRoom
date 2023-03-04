@@ -13,7 +13,7 @@ class Permission(models.Model):
 
 
 class User(AbstractUser):
-    role = models.ForeignKey("Role", on_delete=models.CASCADE, null=True)
+    role = models.ForeignKey("Role", on_delete=models.CASCADE, default=1)
 
 
 class Chat(models.Model):
@@ -51,3 +51,7 @@ class Message(models.Model):
 
     def delete_message(message):
         Message.objects.get(pk=message.id).delete()
+
+    def last_messages(roomName):
+        room = Chat.objects.get(chat_name=roomName)
+        return Message.objects.filter(chat=room).order_by("-created_at")[:10]

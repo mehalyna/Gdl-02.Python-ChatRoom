@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
 
-from chat.models import Chat
+from chat.models import Chat, Message
 
 
 def handler404(request, exception):
@@ -120,6 +120,15 @@ def index(request):
     )
 
 
+def previous_messages(request, room_name):
+    room = Chat.objects.get(chat_name=room_name)
+    return render(
+        request,
+        "chat/room.html",
+        {"messages": Message.objects.filter(chat=room).order_by("-created_at")[:10]},
+    )
+
+
 def room(request, room_name):
     chat_room, created = Chat.objects.get_or_create(chat_name=room_name)
     return render(
@@ -129,3 +138,14 @@ def room(request, room_name):
             "room": chat_room,
         },
     )
+
+
+"""def room(request, message):
+    chat_room, created = Chat.objects.delete(pk=message.)
+    return render(
+        request,
+        "chat/room.html",
+        {
+            "room": chat_room,
+        },
+    )"""

@@ -24,8 +24,14 @@
             <div class="row">
                 <div class="col-12 col-md-8">
                     <div class="mb-2">
-                        <label for="chatLog">Room: #{{ room.chat_name }}</label>
-                        <textarea class="form-control" id="chatLog" readonly></textarea>
+                        <label for="chatLog">Room: #{{ chat_name }}</label>
+                        <select  multiple class="form-control" id="chatLog" >
+                          {{"fuera"}}
+                          {% for message in messages %}
+                          {{"dentro"}}
+                              <option value="{{ message }}">{{ message }}</option>
+                          {% endfor %}
+                        </select>
                     </div>
                     <div class="input-group">
                         <input type="text" class="form-control" id="chatMessageInput" placeholder="Enter your chat message">
