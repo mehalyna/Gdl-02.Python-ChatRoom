@@ -18,9 +18,12 @@ class ChatConsumer(WebsocketConsumer):
     def connect(self):
         self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
         self.room_group_name = f"chat_{self.room_name}"
-        self.room = Chat.objects.get(name=self.room_name)
         self.user = self.scope["user"]
+        self.room = Chat.objects.get(chat_name=self.room_name)
         self.user_inbox = f"inbox_{self.user.username}"
+        print(
+            f"{self.room_name}\n{self.room_group_name}\n{self.room}\n{self.user}\n{self.user_inbox}"
+        )
 
         # connection has to be accepted
         self.accept()
@@ -56,7 +59,9 @@ class ChatConsumer(WebsocketConsumer):
                     "user": self.user.username,
                 },
             )
+            print("adding a user")
             self.room.online.add(self.user)
+            self.room.chat_member.add(self.user)
 
     def disconnect(self, close_code):
         async_to_sync(self.channel_layer.group_discard)(
@@ -122,7 +127,7 @@ class ChatConsumer(WebsocketConsumer):
                 "message": message,
             },
         )
-        Message.objects.create(user=self.user, room=self.room, content=message)
+        Message.objects.create(user=self.user, chat=self.room, content=message)
 
     def chat_message(self, event):
         self.send(text_data=json.dumps(event))

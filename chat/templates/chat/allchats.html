@@ -1,4 +1,5 @@
 {% extends 'chat/base.html' %}
+{% load static %}
 
 {% block content %}
   <style>
@@ -73,7 +74,7 @@
                 <label for="roomSelect">Active rooms</label>
                 <select multiple class="form-control" id="roomSelect">
                     {% for room in rooms %}
-                        <option>{{ room.chat_name }}</option>
+                        <option>{{ room }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -84,14 +85,16 @@
           </div>
         </div>
         <div class="col-12 col-md-4">
-          <label for="roomSelect">Active rooms</label>
+          <label for="roomSelect">Active users</label>
           <select multiple class="form-control" id="roomSelect">
               {% for room in rooms %}
-                  <option>{{ room }}</option>
+                  <option>{{ room.online }}</option>
+                  {% for usr in romm.online.all %}<h1>{{ usr.username }}</h1>{% endfor %}
               {% endfor %}
           </select>
       </div>
       </div>
     </div>
+    <script src="{% static 'index.js' %}"></script>
   </body>
 {% endblock %}

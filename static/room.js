@@ -7,6 +7,7 @@ let chatMessageInput = document.querySelector("#chatMessageInput");
 let chatMessageSend = document.querySelector("#chatMessageSend");
 let onlineUsersSelector = document.querySelector("#onlineUsersSelector");
 
+// adds a new option to 'onlineUsersSelector'
 function onlineUsersSelectorAdd(value) {
   if (document.querySelector("option[value='" + value + "']")) return;
   let newOption = document.createElement("option");
@@ -15,19 +16,24 @@ function onlineUsersSelectorAdd(value) {
   onlineUsersSelector.appendChild(newOption);
 }
 
+// removes an option from 'onlineUsersSelector'
 function onlineUsersSelectorRemove(value) {
   let oldOption = document.querySelector("option[value='" + value + "']");
   if (oldOption !== null) oldOption.remove();
 }
 
+// focus 'chatMessageInput' when user opens the page
 chatMessageInput.focus();
 
+// submit if the user presses the enter key
 chatMessageInput.onkeyup = function (e) {
   if (e.keyCode === 13) {
+    // enter key
     chatMessageSend.click();
   }
 };
 
+// clear the 'chatMessageInput' and forward the message
 chatMessageSend.onclick = function () {
   if (chatMessageInput.value.length === 0) return;
   chatSocket.send(
@@ -41,6 +47,10 @@ chatMessageSend.onclick = function () {
 let chatSocket = null;
 
 function connect() {
+  chatSocket = new WebSocket(
+    "ws://" + window.location.host + "/ws/chat/" + roomName + "/",
+  );
+
   chatSocket.onopen = function (e) {
     console.log("Successfully connected to the WebSocket.");
   };
@@ -61,7 +71,12 @@ function connect() {
 
     switch (data.type) {
       case "chat_message":
-        chatLog.value += data.user + ": " + data.message + "\n";
+        // chatLog.value += data.user + ": " + data.message + "\n";
+        console.log("adding div");
+        let newDiv = document.createElement("div");
+        newDiv.textContent = data;
+        chatLog.appendChild(newDiv);
+
         break;
       case "user_list":
         for (let i = 0; i < data.users.length; i++) {
@@ -87,6 +102,7 @@ function connect() {
         break;
     }
 
+    // scroll 'chatLog' to the bottom
     chatLog.scrollTop = chatLog.scrollHeight;
   };
 
