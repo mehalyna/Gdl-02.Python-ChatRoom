@@ -47,10 +47,7 @@
 
 <body>
   <div class="container py-5 px-4">
-    <div class="col-12 col-md-4">
-      <label for="onlineUsers">Users</label>
-      <select multiple class="form-control" id="onlineUsersSelector"></select>
-    </div>
+
 
  <!-- Chat Box -->
  <div class="col-12 px-0">
@@ -61,7 +58,12 @@
     {% for msg in room_messages.all %}
 
     {% if msg.user == current_user%}
+
     <div class="media w-100 ml-auto mb-3 d-flex flex-row-reverse">
+      <form  method="DELETE" action="{% url 'deletemsg' msg.id room.id %}">
+        {% csrf_token %}
+        <button class="btn btn-danger"  type="submit">Delete</button>
+    </form>
       <div class="media-body text-end">
         <div class="bg-dark rounded py-2 px-3 mb-2">
           <p class="text-small mb-0 text-white">{{msg.content}}</p>
@@ -125,8 +127,10 @@
         </div>
       </form>
     </div>
-    {{ room.chat_name|json_script:"roomName" }}
+   {{ room.id|json_script:"roomId" }}
+  {% comment %} {{ current_user.username|json_script:"currentUser" }}  {% endcomment %}
   </div>
-  <script src="{% static 'room.js' %}"></script>
+
+   <script src="{% static 'room.js' %}"></script>
 </body>
 {% endblock %}

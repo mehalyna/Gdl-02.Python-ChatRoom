@@ -16,14 +16,14 @@ class ChatConsumer(WebsocketConsumer):
         self.user_inbox = None
 
     def connect(self):
-        self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
-        self.room_group_name = f"chat_{self.room_name}"
+        self.room_id = int(self.scope["url_route"]["kwargs"]["room_id"])
+        # self.room
+        # self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
+        self.room_group_name = f"chat_{self.room_id}"
         self.user = self.scope["user"]
-        self.room = Chat.objects.get(chat_name=self.room_name)
+        self.room = Chat.objects.get(id=self.room_id)
         self.user_inbox = f"inbox_{self.user.username}"
-        print(
-            f"{self.room_name}\n{self.room_group_name}\n{self.room}\n{self.user}\n{self.user_inbox}"
-        )
+        print(f"{self.room_group_name}\n{self.room}\n{self.user}\n{self.user_inbox}")
 
         # connection has to be accepted
         self.accept()

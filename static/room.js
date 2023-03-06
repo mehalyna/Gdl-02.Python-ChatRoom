@@ -1,11 +1,12 @@
 console.log("Sanity check from room.js.");
 
-const roomName = JSON.parse(document.getElementById("roomName").textContent);
+const roomId = JSON.parse(document.getElementById("roomId").textContent);
 
 let chatLog = document.querySelector("#chatLog");
 let chatMessageInput = document.querySelector("#chatMessageInput");
 let chatMessageSend = document.querySelector("#chatMessageSend");
 let onlineUsersSelector = document.querySelector("#onlineUsersSelector");
+let currentUser = document.querySelector("#currentUser");
 
 // adds a new option to 'onlineUsersSelector'
 function onlineUsersSelectorAdd(value) {
@@ -48,7 +49,7 @@ let chatSocket = null;
 
 function connect() {
   chatSocket = new WebSocket(
-    "ws://" + window.location.host + "/ws/chat/" + roomName + "/",
+    "ws://" + window.location.host + "/ws/chat/" + roomId + "/",
   );
 
   chatSocket.onopen = function (e) {
@@ -67,15 +68,55 @@ function connect() {
 
   chatSocket.onmessage = function (e) {
     const data = JSON.parse(e.data);
-    console.log(data);
+    console.log(
+      typeof data.user,
+      typeof currentUser.textContent,
+      data.user,
+      currentUser.textContent.replace(/"/g, ""),
+    );
 
     switch (data.type) {
       case "chat_message":
+        const options = {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+        };
+        const timeNow = new Date().toLocaleDateString("en-MX", options);
         // chatLog.value += data.user + ": " + data.message + "\n";
         console.log("adding div");
-        let newDiv = document.createElement("div");
-        newDiv.textContent = data;
-        chatLog.appendChild(newDiv);
+        if (data.user === currentUser.textContent.replace(/"/g, "")) {
+          var newDiv = document.createElement("div");
+          newDiv.innerHTML += `
+                            <div class="media w-100 ml-auto mb-3 d-flex flex-row-reverse">
+                            <div class="media-body text-end">
+                            <div class="bg-dark rounded py-2 px-3 mb-2">
+                                <p class="text-small mb-0 text-white">${data.message}</p>
+                            </div>
+                            <p class="small text-muted">${timeNow}</p>
+                            </div>
+                        </div>
+                                    `;
+          chatLog.appendChild(newDiv);
+        } else {
+          var newDiv = document.createElement("div");
+          newDiv.innerHTML += `
+                    <div class="media w-100 mb-3 d-flex flex-row">
+                    <img src="https://freesvg.org/storage/img/thumb/abstract-user-flat-3.png" class="m-1" alt="user" style="width:32px; height:32px;" class="rounded-circle" />
+                    <div class="media-body ml-3 text-start">
+                      <div class="bg-light rounded py-2 px-3 mb-2">
+                        <p class="text-small fw-bold text-black">${data.user}</p>
+                        <p class="text-small fw-bold text-black">${data.message}</p>
+                      </div>
+                      <p class="small text-muted">${timeNow}</p>
+                    </div>
+                  </div>
+                    `;
+
+          chatLog.appendChild(newDiv);
+        }
 
         break;
       case "user_list":
