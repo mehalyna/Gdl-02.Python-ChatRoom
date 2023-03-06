@@ -1,4 +1,5 @@
 {% extends 'chat/base.html' %}
+{% load static %}
 
 {% block content %}
   <style>
@@ -48,34 +49,47 @@
   <body>
     <div class="container py-5 px-4">
       <div class="row rounded-lg overflow-hidden shadow">
-        <!-- Users box -->
-        <div class="col-12 px-0">
+
+        <div class="col-12 col-md-8 px-0">
           <div class="bg-white">
             <div class="bg-gray px-4 py-2 bg-light">
               <p class="h5 mb-0 py-1 text-dark">Chats</p>
             </div>
-
-            <div class="messages-box">
+            <div class="messages-box" >
               <div class="list-group rounded-0">
-                <a href="{% url 'viewchat' %}" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                  <div class="media">
-                    <img src="https://freesvg.org/storage/img/thumb/abstract-user-flat-3.png" alt="user" style="width:32px; height:32px;" class="rounded-circle" />
-                    <div class="media-body ml-4">
-                      <div class="d-flex align-items-center justify-content-between mb-1">
-                        <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">14 Dec</small>
+             {% for room in rooms.all %}
+                  <a href="{% url 'viewchat' room.id %}" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+                    <div class="media">
+                      <img src="https://freesvg.org/storage/img/thumb/abstract-user-flat-3.png" alt="user" style="width:32px; height:32px;" class="rounded-circle" />
+                      <div class="media-body ml-4">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                          <h6 class="mb-0" >{{room}}</h6><small class="small font-weight-bold">-></small>
+                        </div>
                       </div>
-                      <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur. incididunt ut labore.</p>
                     </div>
+                    </a>
+                    {% endfor %}
                   </div>
-                </a>
+                </div>
+              </div>
+              <div class="bg-gray px-4 py-2 bg-secondary">
+                <a href="{% url 'create-room'%}" class="nav-link"><p class="h5 mb-0 py-1 text-dark text-center text-white">Create new room</p></a>
               </div>
             </div>
             <div class="bg-gray px-4 py-2 bg-secondary">
-              <a href="{% url 'create-room'%}" class="nav-link"><p class="h5 mb-0 py-1 text-dark text-center text-white">Create new room</p></a>
+              <a href="{% url 'create-private-chat' %}" class="nav-link"><p class="h5 mb-0 py-1 text-dark text-center text-white">Create private chat</p></a>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+        <div class="col-12 col-md-4">
+          <label for="roomSelect">Active users</label>
+          <select multiple class="form-control" id="roomSelect">
+              {% for room in rooms.all %}
+                  <option>{{ room.online }}</option>
+                  {% for usr in room.online.all %}<h1>{{ usr.username }}</h1>{% endfor %}
+              {% endfor %}
+          </select>
+        </div>
   </body>
+
 {% endblock %}
