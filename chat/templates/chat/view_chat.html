@@ -56,34 +56,37 @@
   </div>
   <div id="chatLog" class="px-4 py-5 chat-box bg-white">
     {% for msg in room_messages.all %}
-
-    {% if msg.user == current_user%}
-
+  {% if msg.user == current_user %}
     <div class="media w-100 ml-auto mb-3 d-flex flex-row-reverse">
-      <form  method="DELETE" action="{% url 'deletemsg' msg.id room.id %}">
-        {% csrf_token %}
-        <button class="btn btn-danger"  type="submit">Delete</button>
-    </form>
+      <!-- your delete form here -->
       <div class="media-body text-end">
         <div class="bg-dark rounded py-2 px-3 mb-2">
-          <p class="text-small mb-0 text-white">{{msg.content}}</p>
+          {% if '@' in msg.content %}
+            <p class="text-small mb-0 text-danger">{{ msg.content }}</p>
+          {% else %}
+            <p class="text-small mb-0 text-white">{{ msg.content }}</p>
+          {% endif %}
         </div>
-        <p class="small text-muted">{{msg.created_at|date:'M j Y H:i'}}</p>
+        <p class="small text-muted">{{ msg.created_at|date:'M j Y H:i' }}</p>
       </div>
     </div>
-   {% else %}
-   <div class="media w-100 mb-3 d-flex flex-row">
-    <img src="https://freesvg.org/storage/img/thumb/abstract-user-flat-3.png" class="m-1" alt="user" style="width:32px; height:32px;" class="rounded-circle" />
-    <div class="media-body ml-3 text-start">
-      <div class="bg-light rounded py-2 px-3 mb-2">
-        <p class="text-small fw-bold text-black">{{msg.user}}</p>
-        <p class="text-small mb-0 text-muted text-black">{{msg.content}} </p>
+  {% else %}
+    <div class="media w-100 mb-3 d-flex flex-row">
+      <!-- your user image here -->
+      <div class="media-body ml-3 text-start">
+        <div class="bg-light rounded py-2 px-3 mb-2">
+          <p class="text-small fw-bold text-black">{{ msg.user }}</p>
+          {% if '@' in msg.content %}
+            <p class="text-small mb-0 text-danger">{{ msg.content }}</p>
+          {% else %}
+            <p class="text-small mb-0 text-muted text-black">{{ msg.content }}</p>
+          {% endif %}
+        </div>
+        <p class="small text-muted">{{ msg.created_at|date:'M j Y H:i' }}</p>
       </div>
-      <p class="small text-muted">{{msg.created_at|date:'M j Y H:i'}}</p>
     </div>
-  </div>
-    {% endif%}
-    {% endfor%}
+  {% endif %}
+{% endfor %}
 
     <!-- End chatbox -->
   </div>
