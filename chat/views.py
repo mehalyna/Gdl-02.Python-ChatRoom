@@ -2,9 +2,9 @@ import requests
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
-from chat.models import Chat, Message
+from chat.models import Chat, Message, User
 
 
 def handler404(request, exception):
@@ -14,12 +14,23 @@ def handler404(request, exception):
 @login_required
 def create_private_chat(request):
     if request.method == "POST":
-        username = request.POST.get("username")
-        # users = request.POST.get("users")
-        description = "Private chat"
-        chat_id = Chat.objects.create(chat_name=username, description=description)
-        print(chat_id.id)
-    return render(request, "chat/create_private_chat.html")
+        priv_chat_name = request.POST["username"]
+        user = User.objects.filter(username=priv_chat_name).first()
+        if not user:
+            err = f"Error: User {priv_chat_name} does not exist!"
+            return render(request, "chat/create_private_chat.html", {"error": err})
+        name_of_chat = Chat.objects.filter(chat_name=priv_chat_name)
+        if name_of_chat.exists():
+            err = f"Error: Chat with {priv_chat_name} already exists!"
+            return render(request, "chat/create_private_chat.html", {"error": err})
+        else:
+            new_private_chat = Chat.objects.create(chat_name=priv_chat_name)
+            new_private_chat.chat_member.add(request.user, user)
+
+            return redirect("viewchat", str(new_private_chat.id))
+    else:
+        err = ""
+        return render(request, "chat/create_private_chat.html", {"error": err})
 
 
 def after_login(request):
@@ -133,6 +144,9 @@ def view_chat(request, room_id):
     # chat_room = get_object_or_404(Chat, chat_name=room_name)
     room_messages = Message.objects.filter(chat=chat_room)
     current_user = request.user
+    chat = get_object_or_404(Chat, id=room_id)
+    if current_user not in chat.chat_member.all():
+        return render(request, "chat/404.html")
     # print("Messages!", room_messages)
     return render(
         request,

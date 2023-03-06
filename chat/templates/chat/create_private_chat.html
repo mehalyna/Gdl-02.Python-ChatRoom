@@ -14,17 +14,10 @@
       <form method="POST">
         {% csrf_token %}
         <div class="form-group">
-          <label for="roomName">Name</label>
+          <label for="roomName">Username</label>
           <input type="text" name="username" class="form-control" id="roomName" aria-describedby="roomNameHelp" />
-          <small id="roomNameHelp" class="form-text text-white">Add a name to this chat.</small>
-        </div>
-
-        <div class="form-group">
-          <label for="users">Username</label>
-          <input type="text" name="users" class="form-control" id="users" />
           <small id="roomNameHelp" class="form-text text-white">Add the user you want to talk with.</small>
         </div>
-
         <!-- <div class="form-group">
           <label for="description">Description</label>
           <input type="text" name="description" class="form-control" id="description" />
