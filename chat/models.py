@@ -13,7 +13,7 @@ class Permission(models.Model):
 
 
 class User(AbstractUser):
-    role = models.ForeignKey("Role", on_delete=models.CASCADE, null=True)
+    role = models.ForeignKey("Role", on_delete=models.CASCADE, default=1)
 
 
 class Chat(models.Model):

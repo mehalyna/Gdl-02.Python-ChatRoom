@@ -92,6 +92,7 @@ class ChatConsumer(WebsocketConsumer):
 
         if not self.user.is_authenticated:
             return
+        newMsg = Message.objects.create(user=self.user, chat=self.room, content=message)
         if message.startswith("/pm "):
             split = message.split(" ", 2)
             target = split[1]
@@ -104,6 +105,7 @@ class ChatConsumer(WebsocketConsumer):
                     "type": "private_message",
                     "user": self.user.username,
                     "message": target_msg,
+                    "id": newMsg.id,
                 },
             )
             # send private message delivered to the user
@@ -113,6 +115,7 @@ class ChatConsumer(WebsocketConsumer):
                         "type": "private_message_delivered",
                         "target": target,
                         "message": target_msg,
+                        "id": newMsg.id,
                     }
                 )
             )
@@ -125,9 +128,10 @@ class ChatConsumer(WebsocketConsumer):
                 "type": "chat_message",
                 "user": self.user.username,
                 "message": message,
+                "id": newMsg.id,
             },
         )
-        Message.objects.create(user=self.user, chat=self.room, content=message)
+        # Message.objects.create(user=self.user, chat=self.room, content=message)
 
     def chat_message(self, event):
         self.send(text_data=json.dumps(event))

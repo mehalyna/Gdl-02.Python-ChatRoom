@@ -160,15 +160,6 @@ def allchats(request):
 
 def deltemsg(request, msg_id, room_id):
     # Get object by primary key, and belongs an user
-    print(type(msg_id), type(room_id))
-    msgDel = Message.objects.filter(id=msg_id)
-    print("-------------------")
-    print("msg", msgDel)
-    if request.method == "DELETE":
-        # Delete object
-        print("Deleted")
-        msgDel.delete()
-        return redirect("viewchat", str(room_id))
-    else:
-        print("Not deleted")
-        return redirect("viewchat", str(room_id))
+    msgDel = Message.objects.get(pk=msg_id)
+    msgDel.delete()
+    return redirect("viewchat", str(room_id))
