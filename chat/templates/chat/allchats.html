@@ -1,5 +1,6 @@
 {% extends 'chat/base.html' %}
 {% load static %}
+{% load static %}
 
 {% block content %}
   <style>
@@ -78,15 +79,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-12 col-md-4">
-          <label for="roomSelect">Active users</label>
-          <select multiple class="form-control" id="roomSelect">
-              {% for room in rooms.all %}
-                  <option>{{ room.online }}</option>
-                  {% for usr in room.online.all %}<h1>{{ usr.username }}</h1>{% endfor %}
-              {% endfor %}
-          </select>
         </div>
   </body>
 

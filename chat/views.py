@@ -46,10 +46,8 @@ def after_login(request):
 
 @login_required
 def create_room(request):
-    print(request)
     if request.method == "POST":
         chat_name = request.POST["room_name"]
-        print(type(chat_name))
         # Create new room
         req_chat = Chat.objects.filter(chat_name=chat_name)
 
@@ -58,8 +56,6 @@ def create_room(request):
             return render(request, "chat/create_room.html", {"error": err})
         else:
             new_room = Chat.objects.create(chat_name=chat_name)
-            print(new_room)
-            # return HttpResponseRedirect('detail/'+str(new_room.id)+'/')
             return redirect("viewchat", str(new_room.id))
     else:
         err = ""
@@ -78,7 +74,6 @@ def signin(request):
                 username=request.POST["username"],
                 password=request.POST["password"],
             )
-            print(user)
             if user is None:
                 return render(
                     request,
@@ -118,7 +113,6 @@ def signup(request):
                             password=request.POST["password2"],
                         )
                         login(request, user)
-                        print(userR.status_code)
                         return redirect("allchats")
                     else:
                         err = "The username has already been taken. Please choose a new username"
@@ -143,15 +137,9 @@ def logoutuser(request):
 
 @login_required
 def view_chat(request, room_id):
-    # chat = []
-    # chat.append({"id": 1, "name": "Chat Harcodeado"})
-    # return render(request, "chat/view_chat.html", {"chat": chat})
-    # chat_room = Chat.objects.get(chat_name=room_name)
     chat_room, created = Chat.objects.get_or_create(id=room_id)
-    # chat_room = get_object_or_404(Chat, chat_name=room_name)
     room_messages = Message.objects.filter(chat=chat_room)
     current_user = request.user
-    # print("Messages!", room_messages)
     return render(
         request,
         "chat/view_chat.html",
@@ -163,20 +151,10 @@ def view_chat(request, room_id):
     )
 
 
-# @login_required
-# def view_chat(request,id_chat):
-#     chat=[]
-#     chat.append({"id":id_chat,"name": "Chat Harcodeado"})
-#     return render(request,'chat/view_chat.html',{"chat":chat})
-
-
 @login_required
 def allchats(request):
-    # user = request.user
-    # rooms = Chat.objects.filter(chat_member=user)
     user_chats = Chat.objects.filter(chat_member=request.user)
 
-    # print(user_chats.chat_name)
     return render(
         request,
         "chat/allchats.html",
@@ -187,16 +165,6 @@ def allchats(request):
 
 
 def deltemsg(request, msg_id, room_id):
-    # Get object by primary key, and belongs an user
-    print(type(msg_id), type(room_id))
-    msgDel = Message.objects.filter(id=msg_id)
-    print("-------------------")
-    print("msg", msgDel)
-    if request.method == "DELETE":
-        # Delete object
-        print("Deleted")
-        msgDel.delete()
-        return redirect("viewchat", str(room_id))
-    else:
-        print("Not deleted")
-        return redirect("viewchat", str(room_id))
+    msgDel = Message.objects.get(pk=msg_id)
+    msgDel.delete()
+    return redirect("viewchat", str(room_id))
