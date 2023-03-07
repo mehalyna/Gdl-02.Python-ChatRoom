@@ -91,7 +91,15 @@ function connect() {
                             <p class="small text-muted">${timeNow}</p>
                             </div>
                         </div>
+
                                     `;
+          //event for deleting new (own) messages
+          newDiv.onclick = function () {
+            console.log(data.id);
+            if (confirm("Do you want to delete this message?") == true) {
+              document.location.href = urlDelete.replace("1", data.id);
+            }
+          };
           chatLog.appendChild(newDiv);
         } else {
           var newDiv = document.createElement("div");
@@ -145,6 +153,12 @@ function connect() {
                             </div>
                         </div>
                                     `;
+          newDiv.onclick = function () {
+            console.log(data.id);
+            if (confirm("Do you want to delete this message?") == true) {
+              document.location.href = urlDelete.replace("1", data.id);
+            }
+          };
           chatLog.appendChild(newDiv);
         } else {
           var newDiv = document.createElement("div");

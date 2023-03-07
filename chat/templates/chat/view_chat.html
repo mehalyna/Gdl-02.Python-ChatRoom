@@ -47,9 +47,13 @@
 
 <body>
   <div class="container py-5 px-4">
-
+    <div class="col-12 col-md-4">
+      <label for="onlineUsers">Users</label>
+      <select multiple class="form-control" id="onlineUsersSelector"></select>
+    </div>
 
  <!-- Chat Box -->
+
  <div class="col-12 px-0">
   <div class="bg-gray px-4 py-2 bg-light">
     <p class="h5 mb-0 py-1 text-dark">{{ room.chat_name }}</p>
@@ -60,11 +64,17 @@
     <div class="media w-100 ml-auto mb-3 d-flex flex-row-reverse">
       <!-- your delete form here -->
       <div class="media-body text-end">
+        <!-- add event for deleting on previous messages -->
         <div class="bg-dark rounded py-2 px-3 mb-2">
           {% if '@' in msg.content %}
-            <p class="text-small mb-0 text-danger">{{ msg.content }}</p>
+          <div  onclick ="if (confirm('Do you want to delete this message?')){location.href='{% url 'deletemsg' msg.id room.id %}'}" class="bg-dark rounded py-2 px-3 mb-2" >
+            <p class="text-small mb-0 text-white">{{msg.content}}</p>
+          </div>
           {% else %}
-            <p class="text-small mb-0 text-white">{{ msg.content }}</p>
+
+          <div  onclick ="if (confirm('Do you want to delete this message?')){location.href='{% url 'deletemsg' msg.id room.id %}'}" class="bg-dark rounded py-2 px-3 mb-2" >
+            <p class="text-small mb-0 text-white">{{msg.content}}</p>
+          </div>
           {% endif %}
         </div>
         <p class="small text-muted">{{ msg.created_at|date:'M j Y H:i' }}</p>
@@ -135,5 +145,7 @@
   </div>
 
    <script src="{% static 'room.js' %}"></script>
+   <script type="text/javascript">
+    var urlDelete = "{% url 'deletemsg' '1' room.id %}" </script>
 </body>
 {% endblock %}
