@@ -2,7 +2,7 @@ import requests
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 
 from chat.models import Chat, Message, User
 
@@ -151,9 +151,6 @@ def view_chat(request, room_id):
     # chat_room = get_object_or_404(Chat, chat_name=room_name)
     room_messages = Message.objects.filter(chat=chat_room)
     current_user = request.user
-    chat = get_object_or_404(Chat, id=room_id)
-    if current_user not in chat.chat_member.all():
-        return render(request, "chat/404.html")
     # print("Messages!", room_messages)
     return render(
         request,
