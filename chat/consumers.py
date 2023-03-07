@@ -106,6 +106,7 @@ class ChatConsumer(WebsocketConsumer):
                     "message": target_msg,
                 },
             )
+
             # send private message delivered to the user
             self.send(
                 json.dumps(
@@ -117,16 +118,24 @@ class ChatConsumer(WebsocketConsumer):
                 )
             )
             return
-
-        # send chat message event to the room
-        async_to_sync(self.channel_layer.group_send)(
-            self.room_group_name,
-            {
-                "type": "chat_message",
-                "user": self.user.username,
-                "message": message,
-            },
-        )
+        elif message.startswith("@"):
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                    "type": "tagged_message",
+                    "user": self.user.username,
+                    "message": message,
+                },
+            )
+        else:
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                    "type": "chat_message",
+                    "user": self.user.username,
+                    "message": message,
+                },
+            )
         Message.objects.create(user=self.user, chat=self.room, content=message)
 
     def chat_message(self, event):
@@ -142,4 +151,7 @@ class ChatConsumer(WebsocketConsumer):
         self.send(text_data=json.dumps(event))
 
     def private_message_delivered(self, event):
+        self.send(text_data=json.dumps(event))
+
+    def tagged_message(self, event):
         self.send(text_data=json.dumps(event))

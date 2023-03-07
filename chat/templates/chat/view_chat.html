@@ -131,7 +131,7 @@
       </form>
     </div>
    {{ room.id|json_script:"roomId" }}
-  {% comment %} {{ current_user.username|json_script:"currentUser" }}  {% endcomment %}
+   {{ current_user.username|json_script:"currentUser" }}
   </div>
 
    <script src="{% static 'room.js' %}"></script>
