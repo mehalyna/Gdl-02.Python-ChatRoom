@@ -14,20 +14,27 @@ def handler404(request, exception):
 @login_required
 def create_private_chat(request):
     if request.method == "POST":
-        priv_chat_name = request.POST["username"]
-        user = User.objects.filter(username=priv_chat_name).first()
+        friend_username = request.POST["username"]
+        user = User.objects.filter(username=friend_username).first()
+
         if not user:
-            err = f"Error: User {priv_chat_name} does not exist!"
+            err = f"Error: User {friend_username} does not exist!"
             return render(request, "chat/create_private_chat.html", {"error": err})
+
+        priv_chat_name = f"{request.user.username} - {friend_username}"
         name_of_chat = Chat.objects.filter(chat_name=priv_chat_name)
-        if name_of_chat.exists():
-            err = f"Error: Chat with {priv_chat_name} already exists!"
+        priv_chat_name_2 = f"{friend_username} - {request.user.username}"
+        name_of_chat_2 = Chat.objects.filter(chat_name=priv_chat_name_2)
+
+        if name_of_chat.exists() or name_of_chat_2.exists():
+            err = f"Error: Chat with {friend_username} already exists!"
             return render(request, "chat/create_private_chat.html", {"error": err})
+
         else:
             new_private_chat = Chat.objects.create(chat_name=priv_chat_name)
             new_private_chat.chat_member.add(request.user, user)
-
             return redirect("viewchat", str(new_private_chat.id))
+
     else:
         err = ""
         return render(request, "chat/create_private_chat.html", {"error": err})
