@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
 
-from chat.models import Chat, Message
+from chat.models import Chat, Message, User
 
 
 def handler404(request, exception):
@@ -12,16 +12,42 @@ def handler404(request, exception):
 
 
 @login_required
+def create_private_chat(request):
+    if request.method == "POST":
+        friend_username = request.POST["username"]
+        user = User.objects.filter(username=friend_username).first()
+
+        if not user:
+            err = f"Error: User {friend_username} does not exist!"
+            return render(request, "chat/create_private_chat.html", {"error": err})
+
+        priv_chat_name = f"{request.user.username} - {friend_username}"
+        name_of_chat = Chat.objects.filter(chat_name=priv_chat_name)
+        priv_chat_name_2 = f"{friend_username} - {request.user.username}"
+        name_of_chat_2 = Chat.objects.filter(chat_name=priv_chat_name_2)
+
+        if name_of_chat.exists() or name_of_chat_2.exists():
+            err = f"Error: Chat with {friend_username} already exists!"
+            return render(request, "chat/create_private_chat.html", {"error": err})
+
+        else:
+            new_private_chat = Chat.objects.create(chat_name=priv_chat_name)
+            new_private_chat.chat_member.add(request.user, user)
+            return redirect("viewchat", str(new_private_chat.id))
+
+    else:
+        err = ""
+        return render(request, "chat/create_private_chat.html", {"error": err})
+
+
 def after_login(request):
     return
 
 
 @login_required
 def create_room(request):
-    print(request)
     if request.method == "POST":
         chat_name = request.POST["room_name"]
-        print(type(chat_name))
         # Create new room
         req_chat = Chat.objects.filter(chat_name=chat_name)
 
@@ -30,8 +56,6 @@ def create_room(request):
             return render(request, "chat/create_room.html", {"error": err})
         else:
             new_room = Chat.objects.create(chat_name=chat_name)
-            print(new_room)
-            # return HttpResponseRedirect('detail/'+str(new_room.id)+'/')
             return redirect("viewchat", str(new_room.id))
     else:
         err = ""
@@ -50,7 +74,6 @@ def signin(request):
                 username=request.POST["username"],
                 password=request.POST["password"],
             )
-            print(user)
             if user is None:
                 return render(
                     request,
@@ -90,7 +113,6 @@ def signup(request):
                             password=request.POST["password2"],
                         )
                         login(request, user)
-                        print(userR.status_code)
                         return redirect("allchats")
                     else:
                         err = "The username has already been taken. Please choose a new username"
@@ -115,15 +137,9 @@ def logoutuser(request):
 
 @login_required
 def view_chat(request, room_id):
-    # chat = []
-    # chat.append({"id": 1, "name": "Chat Harcodeado"})
-    # return render(request, "chat/view_chat.html", {"chat": chat})
-    # chat_room = Chat.objects.get(chat_name=room_name)
     chat_room, created = Chat.objects.get_or_create(id=room_id)
-    # chat_room = get_object_or_404(Chat, chat_name=room_name)
     room_messages = Message.objects.filter(chat=chat_room)
     current_user = request.user
-    # print("Messages!", room_messages)
     return render(
         request,
         "chat/view_chat.html",
@@ -135,20 +151,10 @@ def view_chat(request, room_id):
     )
 
 
-# @login_required
-# def view_chat(request,id_chat):
-#     chat=[]
-#     chat.append({"id":id_chat,"name": "Chat Harcodeado"})
-#     return render(request,'chat/view_chat.html',{"chat":chat})
-
-
 @login_required
 def allchats(request):
-    # user = request.user
-    # rooms = Chat.objects.filter(chat_member=user)
     user_chats = Chat.objects.filter(chat_member=request.user)
 
-    # print(user_chats.chat_name)
     return render(
         request,
         "chat/allchats.html",

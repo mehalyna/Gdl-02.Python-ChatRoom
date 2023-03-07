@@ -43,14 +43,12 @@
           password2 = document.getElementById('password2').value
 
           const formData = new FormData()
-          //console.log(name);
           formData.append('username', username)
           formData.append('email', email)
           formData.append('password1', password1)
           formData.append('password2', password2)
 
           formData.append('csrfmiddlewaretoken', '{{ csrf_token }}')
-          console.log(formData)
           fetch('http://127.0.0.1:8000/dj-rest-auth/registration/', {
             method: 'POST',
             body: formData

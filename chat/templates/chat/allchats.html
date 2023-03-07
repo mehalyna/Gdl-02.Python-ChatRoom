@@ -1,5 +1,6 @@
 {% extends 'chat/base.html' %}
 {% load static %}
+{% load static %}
 
 {% block content %}
   <style>
@@ -74,18 +75,10 @@
               </div>
               <div class="bg-gray px-4 py-2 bg-secondary">
                 <a href="{% url 'create-room'%}" class="nav-link"><p class="h5 mb-0 py-1 text-dark text-center text-white">Create new room</p></a>
+                <a href="{% url 'create-private-chat' %}" class="nav-link"><p class="h5 mb-0 py-1 text-dark text-center text-white">Create private chat</p></a>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-12 col-md-4">
-          <label for="roomSelect">Active users</label>
-          <select multiple class="form-control" id="roomSelect">
-              {% for room in rooms.all %}
-                  <option>{{ room.online }}</option>
-                  {% for usr in room.online.all %}<h1>{{ usr.username }}</h1>{% endfor %}
-              {% endfor %}
-          </select>
         </div>
   </body>
 

@@ -1,25 +1,9 @@
-console.log("Sanity check from room.js.");
-
 const roomId = JSON.parse(document.getElementById("roomId").textContent);
 
 let chatLog = document.querySelector("#chatLog");
 let chatMessageInput = document.querySelector("#chatMessageInput");
 let chatMessageSend = document.querySelector("#chatMessageSend");
-let onlineUsersSelector = document.querySelector("#onlineUsersSelector");
 let currentUser = document.querySelector("#currentUser");
-
-function onlineUsersSelectorAdd(value) {
-  if (document.querySelector("option[value='" + value + "']")) return;
-  let newOption = document.createElement("option");
-  newOption.value = value;
-  newOption.innerHTML = value;
-  onlineUsersSelector.appendChild(newOption);
-}
-
-function onlineUsersSelectorRemove(value) {
-  let oldOption = document.querySelector("option[value='" + value + "']");
-  if (oldOption !== null) oldOption.remove();
-}
 
 chatMessageInput.focus();
 
@@ -62,12 +46,6 @@ function connect() {
 
   chatSocket.onmessage = function (e) {
     const data = JSON.parse(e.data);
-    console.log(
-      typeof data.user,
-      typeof currentUser.textContent,
-      data.user,
-      currentUser.textContent.replace(/"/g, ""),
-    );
     const options = {
       month: "short",
       day: "numeric",
@@ -75,11 +53,9 @@ function connect() {
       hour: "numeric",
       minute: "numeric",
     };
-    console.log(data);
     const timeNow = new Date().toLocaleDateString("en-MX", options);
     switch (data.type) {
       case "chat_message":
-        console.log("adding div");
         if (data.user === currentUser.textContent.replace(/"/g, "")) {
           var newDiv = document.createElement("div");
           newDiv.innerHTML += `
@@ -91,11 +67,9 @@ function connect() {
                             <p class="small text-muted">${timeNow}</p>
                             </div>
                         </div>
-
                                     `;
           //event for deleting new (own) messages
           newDiv.onclick = function () {
-            console.log(data.id);
             if (confirm("Do you want to delete this message?") == true) {
               document.location.href = urlDelete.replace("1", data.id);
             }
@@ -120,24 +94,11 @@ function connect() {
         }
 
         break;
-      case "user_list":
-        for (let i = 0; i < data.users.length; i++) {
-          onlineUsersSelectorAdd(data.users[i]);
-        }
-        break;
       case "user_join":
         chatLog.value += data.user + " joined the room.\n";
-        onlineUsersSelectorAdd(data.user);
         break;
       case "user_leave":
         chatLog.value += data.user + " left the room.\n";
-        onlineUsersSelectorRemove(data.user);
-        break;
-      case "private_message":
-        chatLog.value += "PM from " + data.user + ": " + data.message + "\n";
-        break;
-      case "private_message_delivered":
-        chatLog.value += "PM to " + data.target + ": " + data.message + "\n";
         break;
 
       case "tagged_message":
@@ -154,7 +115,6 @@ function connect() {
                         </div>
                                     `;
           newDiv.onclick = function () {
-            console.log(data.id);
             if (confirm("Do you want to delete this message?") == true) {
               document.location.href = urlDelete.replace("1", data.id);
             }
@@ -194,9 +154,3 @@ function connect() {
   };
 }
 connect();
-
-onlineUsersSelector.onchange = function () {
-  chatMessageInput.value = "/pm " + onlineUsersSelector.value + " ";
-  onlineUsersSelector.value = null;
-  chatMessageInput.focus();
-};
