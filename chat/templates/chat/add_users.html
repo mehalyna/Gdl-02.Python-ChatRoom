@@ -3,7 +3,7 @@
 {% block content %}
   <div class="row justify-content-center mt-5">
     <div class="col-md-5">
-      <h2>Create private chat</h2>
+      <h2>Add user</h2>
     </div>
   </div>
   <div class="row justify-content-center mt-5">
@@ -15,10 +15,10 @@
         {% csrf_token %}
         <div class="form-group">
           <label for="roomName">Username</label>
-          <input type="text" name="username" class="form-control" id="roomName" aria-describedby="roomNameHelp" />
-          <small id="roomNameHelp" class="form-text text-white">Add the user you want to talk with.</small>
+          <input type="text" name="username" class="form-control" aria-describedby="roomNameHelp" />
+          <small id="roomNameHelp" class="form-text text-white">Add the user to the group.</small>
         </div>
-        <button type="submit" class="btn btn-primary m-1">Create</button>
+        <button type="submit" class="btn btn-primary m-1">Add</button>
       </form>
       <hr />
     </div>

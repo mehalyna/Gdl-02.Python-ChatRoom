@@ -1,4 +1,3 @@
-import requests
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
@@ -42,8 +41,25 @@ def create_private_chat(request):
         return render(request, "chat/create_private_chat.html", {"error": err})
 
 
-def after_login(request):
-    return
+@login_required
+def add_users(request, room_id):
+    if request.method == "POST":
+        username = request.POST["username"]
+        print(username)
+        user = User.objects.filter(username=username).first()
+        print(user)
+        if user is None:
+            err = f"Error: User {username} does not exist!"
+            return render(request, "chat/add_users.html", {"error": err})
+        else:
+            print(user)
+            chat_room = Chat.objects.get(id=room_id)
+            chat_room.chat_member.add(user)
+            chat_room.save()
+            return redirect("viewchat", room_id)
+    else:
+        err = ""
+        return render(request, "chat/add_users.html", {"error": err})
 
 
 @login_required
@@ -87,10 +103,6 @@ def signin(request):
                 return redirect("allchats")
 
 
-# base_url="http://pychat.lat"
-base_url = "http://127.0.0.1:8000"
-
-
 def signup(request):
     if request.user.is_authenticated:
         return redirect("allchats")
@@ -98,35 +110,22 @@ def signup(request):
         if request.method == "GET":
             return render(request, "chat/signup.html")
         else:
-            try:
-                myobjR = {
-                    "username": request.POST["username"],
-                    "email": request.POST["email"],
-                    "password1": request.POST["password1"],
-                    "password2": request.POST["password2"],
-                }
-                if request.POST["password1"] == request.POST["password2"]:
-                    urlR = f"{base_url}/dj-rest-auth/registration/"
-                    userR = requests.post(urlR, json=myobjR)
-                    if userR:
-                        user = authenticate(
-                            request,
-                            username=request.POST["username"],
-                            password=request.POST["password2"],
-                        )
-                        login(request, user)
-                        return redirect("allchats")
-                    else:
-                        err = "The username has already been taken. Please choose a new username"
-                        return render(request, "chat/signup.html", {"error": err})
-                else:
-                    err = "The passwords not match"
+            if request.POST["password1"] == request.POST["password2"]:
+                try:
+                    user = User.objects.create_user(
+                        request.POST["username"],
+                        request.POST["email"],
+                        password=request.POST["password1"],
+                    )
+                    user.save()
+                    print(user)
+                    login(request, user)
+                    return redirect("allchats")
+                except IntegrityError:
+                    err = "The username has already been taken. Please choose a new username"
                     return render(request, "chat/signup.html", {"error": err})
-
-            except IntegrityError:
-                err = (
-                    "The username has already been taken. Please choose a new username"
-                )
+            else:
+                err = "The passwords not match"
                 return render(request, "chat/signup.html", {"error": err})
 
 
