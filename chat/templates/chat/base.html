@@ -37,22 +37,21 @@
           />
           <span class="fs-4 text-white">Pychat</span>
         </a>
-        <a
-          href="{% url 'allchats'%}"
-          class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
-        >
-          <span class="fs-4 text-white">Home </span>
-        </a>
 
         {%if user.is_authenticated%}
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-          <li class="nav-link px-2 text-white">{{user.username}}</li>
+          <a href="{% url 'allchats'%}"  class="nav-link px-2 text-white">
+            <span class="fs-4 text-white">Home </span>
+          </a>
+
+          <li class="nav-link px-2 text-white"><span class="fs-4 text-secondary">{{user.username}} </span></li>
           <li class="nav-link px-2 text-white">
             <form action="{% url 'logoutuser'%}" method="POST">
               {%csrf_token%}
               <button type="submit" class="rounded-pill text-bg-warning">
-                Logout
+                <span >Logout </span>
+
               </button>
             </form>
           </li>

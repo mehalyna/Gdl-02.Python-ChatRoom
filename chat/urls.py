@@ -7,8 +7,13 @@ urlpatterns = [
     path("login/", views.signin, name="loginuser"),
     path("create-room/", views.create_room, name="create-room"),
     path("create-private-chat/", views.create_private_chat, name="create-private-chat"),
+    path("detail", views.create_private_chat, name="create-private-chat"),
     path("allchats/", views.allchats, name="allchats"),
     path("detail/<int:room_id>/", views.view_chat, name="viewchat"),
+    path("detail/<int:room_id>/add-users", views.add_users, name="add-users"),
     path("logout/", views.logoutuser, name="logoutuser"),
     path("detail/<int:msg_id>/<int:room_id>/delete", views.deltemsg, name="deletemsg"),
+    path(
+        "private-chat/<int:room_id>/", views.view_private_chat, name="view-private-chat"
+    ),
 ]
