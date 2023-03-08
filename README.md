@@ -30,6 +30,10 @@ Migrate the database
 python manage.py makemigrations
 python manage.py migrate
 ```
+Enable a channel layer
+```
+docker run -p 6379:6379 -d redis:5
+```
 Run the project
 ```
 python manage.py runserver
