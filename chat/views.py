@@ -2,7 +2,7 @@ import requests
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from chat.models import Chat, Message, User
 
@@ -31,9 +31,11 @@ def create_private_chat(request):
             return render(request, "chat/create_private_chat.html", {"error": err})
 
         else:
-            new_private_chat = Chat.objects.create(chat_name=priv_chat_name)
+            new_private_chat = Chat.objects.create(
+                chat_name=priv_chat_name, description="Private"
+            )
             new_private_chat.chat_member.add(request.user, user)
-            return redirect("viewchat", str(new_private_chat.id))
+            return redirect("view-private-chat", str(new_private_chat.id))
 
     else:
         err = ""
@@ -138,6 +140,9 @@ def logoutuser(request):
 @login_required
 def view_chat(request, room_id):
     chat_room, created = Chat.objects.get_or_create(id=room_id)
+    priv_room = Chat.objects.filter(id=room_id, description="Private").first()
+    if priv_room:
+        return render(request, "chat/404.html")
     room_messages = Message.objects.filter(chat=chat_room)
     current_user = request.user
     return render(
@@ -167,4 +172,29 @@ def allchats(request):
 def deltemsg(request, msg_id, room_id):
     msgDel = Message.objects.get(pk=msg_id)
     msgDel.delete()
-    return redirect("viewchat", str(room_id))
+    chat_desc = Chat.objects.get(pk=room_id).description
+
+    if chat_desc == "Private":
+        return redirect("view-private-chat", str(room_id))
+
+    else:
+        return redirect("viewchat", str(room_id))
+
+
+@login_required
+def view_private_chat(request, room_id):
+    chat_room, created = Chat.objects.get_or_create(id=room_id)
+    room_messages = Message.objects.filter(chat=chat_room)
+    current_user = request.user
+    chat = get_object_or_404(Chat, id=room_id)
+    if current_user not in chat.chat_member.all():
+        return render(request, "chat/404.html")
+    return render(
+        request,
+        "chat/view_chat.html",
+        {
+            "room": chat_room,
+            "room_messages": room_messages,
+            "current_user": current_user,
+        },
+    )
